@@ -88,15 +88,8 @@ case class ContraMapToLMap(index: SemanticdbIndex)
     val unApplyName = "catsUnapply2left"
 
     ctx.tree.collect {
-      case Term.Apply(fun, _) =>
-        if (contraMatcher.matches(fun) &&
-          fun.children.headOption.flatMap(index.denotation).exists{ x => println(x.name == unApplyName); x.name == unApplyName }) {
-          fun.children.find(contraMatcher.matches).map(tree => ctx.replaceTree(tree, "lmap")).getOrElse(Patch.empty)
-        } else {
-          Patch.empty
-        }
-      case _ => Patch.empty
-
+      case Term.Apply(Term.Select(f, contraMatcher(contramap)), _) if f.denotation.exists(_.name == unApplyName) =>
+        ctx.replaceTree(contramap, "lmap")
     }.asPatch
   }
 }
