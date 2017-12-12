@@ -21,8 +21,6 @@ class KleisliSuite extends CatsSuite {
   implicit val eitherTEq = EitherT.catsDataEqForEitherT[Kleisli[Option, Int, ?], Unit, Int]
   implicit val eitherTEq2 = EitherT.catsDataEqForEitherT[Reader[Int, ?], Unit, Int]
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Kleisli[Option, Int, ?]]
-  implicit val iso2 = SemigroupalTests.Isomorphisms.invariant[Reader[Int, ?]]
 
   {
     implicit val instance: ApplicativeError[Kleisli[Option, Int, ?], Unit] = Kleisli.catsDataApplicativeErrorForKleisli[Option, Unit, Int](cats.instances.option.catsStdInstancesForOption)

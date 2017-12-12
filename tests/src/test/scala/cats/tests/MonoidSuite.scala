@@ -6,7 +6,7 @@ package tests
 class MonoidSuite extends CatsSuite {
   {
     Invariant[Monoid]
-    InvariantSemigroupal[Monoid]
+    Semigroupal[Monoid]
   }
 
   test("companion object syntax") {

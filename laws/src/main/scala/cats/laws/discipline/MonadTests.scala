@@ -3,7 +3,7 @@ package laws
 package discipline
 
 import catalysts.Platform
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop._
 
@@ -24,7 +24,6 @@ trait MonadTests[F[_]] extends ApplicativeTests[F] with FlatMapTests[F] {
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
     EqFInt: Eq[F[Int]],
-    iso: Isomorphisms[F]
   ): RuleSet = {
     new RuleSet {
       def name: String = "monad"
@@ -52,7 +51,7 @@ trait MonadTests[F[_]] extends ApplicativeTests[F] with FlatMapTests[F] {
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
     EqFInt: Eq[F[Int]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new RuleSet {
       def name: String = "monad (stack-unsafe)"

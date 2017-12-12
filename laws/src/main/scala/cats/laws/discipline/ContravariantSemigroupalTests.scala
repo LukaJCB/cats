@@ -3,7 +3,7 @@ package laws
 package discipline
 
 import cats.ContravariantSemigroupal
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 
@@ -21,7 +21,7 @@ trait ContravariantSemigroupalTests[F[_]] extends ContravariantTests[F] with Sem
     EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
     ): RuleSet = {
       new RuleSet {
         val name = "contravariantSemigroupal"

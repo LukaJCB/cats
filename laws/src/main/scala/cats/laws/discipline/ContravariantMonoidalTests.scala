@@ -3,7 +3,7 @@ package laws
 package discipline
 
 import cats.ContravariantMonoidal
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 
@@ -21,7 +21,7 @@ trait ContravariantMonoidalTests[F[_]] extends ContravariantSemigroupalTests[F] 
     EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
     ): RuleSet = {
       new RuleSet {
         val name = "contravariantMonoidal"

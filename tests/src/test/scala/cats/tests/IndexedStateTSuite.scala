@@ -252,7 +252,6 @@ class IndexedStateTSuite extends CatsSuite {
   }
 
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[IndexedStateT[ListWrapper, String, Int, ?]](IndexedStateT.catsDataFunctorForIndexedStateT(ListWrapper.monad))
 
   {
     // F has a Functor
@@ -380,7 +379,6 @@ class IndexedStateTSuite extends CatsSuite {
   }
 
   {
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[State[Long, ?]]
 
     checkAll("State[Long, ?]", MonadTests[State[Long, ?]].monad[Int, Int, Int])
     checkAll("Monad[State[Long, ?]]", SerializableTests.serializable(Monad[State[Long, ?]]))
@@ -388,7 +386,6 @@ class IndexedStateTSuite extends CatsSuite {
 
   {
     // F has a MonadError
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[StateT[Option, Int, ?]]
     implicit val eqEitherTFA: Eq[EitherT[StateT[Option, Int , ?], Unit, Int]] = EitherT.catsDataEqForEitherT[StateT[Option, Int , ?], Unit, Int]
 
     checkAll("StateT[Option, Int, Int]", MonadErrorTests[StateT[Option, Int, ?], Unit].monadError[Int, Int, Int])

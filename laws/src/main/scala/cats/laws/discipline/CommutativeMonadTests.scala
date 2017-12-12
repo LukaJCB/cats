@@ -2,7 +2,7 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 
 trait CommutativeMonadTests[F[_]] extends MonadTests[F] with CommutativeFlatMapTests[F] with CommutativeApplicativeTests[F] {
@@ -22,7 +22,7 @@ trait CommutativeMonadTests[F[_]] extends MonadTests[F] with CommutativeFlatMapT
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
     EqFInt: Eq[F[Int]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new RuleSet {
       def name: String = "commutative monad"

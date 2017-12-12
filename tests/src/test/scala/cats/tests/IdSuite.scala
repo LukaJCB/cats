@@ -4,7 +4,6 @@ package tests
 import cats.laws.discipline._
 
 class IdSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Id]
 
   checkAll("Id[Int]", BimonadTests[Id].bimonad[Int, Int, Int])
   checkAll("Bimonad[Id]", SerializableTests.serializable(Bimonad[Id]))

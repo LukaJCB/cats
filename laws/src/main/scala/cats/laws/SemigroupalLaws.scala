@@ -1,17 +1,22 @@
 package cats
 package laws
 
+
 /**
- * Laws that must be obeyed by any `cats.Semigroupal`.
- */
-trait SemigroupalLaws[F[_]] {
-  implicit def F: Semigroupal[F]
+  * Laws that are expected for any `cats.InvariantSemigroupal`.
+  */
+trait SemigroupalLaws[F[_]] extends InvariantLaws[F] {
+  implicit override def F: Semigroupal[F]
 
-  def semigroupalAssociativity[A, B, C](fa: F[A], fb: F[B], fc: F[C]): (F[(A, (B, C))], F[((A, B), C)]) =
-    (F.product(fa, F.product(fb, fc)), F.product(F.product(fa, fb), fc))
+  def semigroupalAssociativity[A, B, C](fa: F[A], fb: F[B], fc: F[C]): IsEq[F[(A, B, C)]] =
+    (F.imap(F.product(fa, F.product(fb, fc)))
+      { case (a, (b, c)) => (a, b, c) }
+      { case (a, b, c) => (a, (b, c)) }) <-> F.imap(F.product(F.product(fa, fb), fc))
+      { case ((a, b), c) => (a, b, c) }
+      { case (a, b, c) => ((a, b), c) }
+
 }
-
 object SemigroupalLaws {
   def apply[F[_]](implicit ev: Semigroupal[F]): SemigroupalLaws[F] =
-    new SemigroupalLaws[F] { val F = ev }
+    new SemigroupalLaws[F] { def F: Semigroupal[F] = ev }
 }

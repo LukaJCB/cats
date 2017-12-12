@@ -10,7 +10,6 @@ import cats.kernel.laws.discipline.{MonoidTests, SemigroupTests, OrderTests, Par
 
 
 class EitherTSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[EitherT[ListWrapper, String, ?]](EitherT.catsDataFunctorForEitherT(ListWrapper.functor))
 
   {
     checkAll("EitherT[Option, ListWrapper[String], ?]", SemigroupKTests[EitherT[Option, ListWrapper[String], ?]].semigroupK[Int])

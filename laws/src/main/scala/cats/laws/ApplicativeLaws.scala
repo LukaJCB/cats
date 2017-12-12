@@ -41,11 +41,11 @@ trait ApplicativeLaws[F[_]] extends ApplyLaws[F] {
   // The following are the lax monoidal functor identity laws - the associativity law is covered by
   // Semigroupal's associativity law.
 
-  def monoidalLeftIdentity[A](fa: F[A]): (F[(Unit, A)], F[A]) =
-    (F.product(F.pure(()), fa), fa)
+  def monoidalLeftIdentity[A](fa: F[A]): IsEq[F[A]] =
+    F.product(F.pure(()), fa).map(_._2) <-> fa
 
-  def monoidalRightIdentity[A](fa: F[A]): (F[(A, Unit)], F[A]) =
-    (F.product(fa, F.pure(())), fa)
+  def monoidalRightIdentity[A](fa: F[A]): IsEq[F[A]] =
+    F.product(fa, F.pure(())).map(_._1) <-> fa
 }
 
 object ApplicativeLaws {

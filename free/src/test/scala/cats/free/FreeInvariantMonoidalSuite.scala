@@ -4,7 +4,6 @@ package tests
 import cats.arrow.FunctionK
 import cats.free.FreeInvariantMonoidal
 import cats.laws.discipline.{InvariantMonoidalTests, SerializableTests}
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
 import org.scalacheck.{Arbitrary, Gen}
 import cats.tests.CsvCodecInvariantMonoidalSuite._
 
@@ -23,7 +22,6 @@ class FreeInvariantMonoidalSuite extends CatsSuite {
       }
     }
 
-  implicit val isoFreeCsvCodec = Isomorphisms.invariant[FreeInvariantMonoidal[CsvCodec, ?]]
 
   checkAll("FreeInvariantMonoidal[CsvCodec, ?]", InvariantMonoidalTests[FreeInvariantMonoidal[CsvCodec, ?]].invariantMonoidal[Int, Int, Int])
   checkAll("InvariantMonoidal[FreeInvariantMonoidal[CsvCodec, ?]]", SerializableTests.serializable(InvariantMonoidal[FreeInvariantMonoidal[CsvCodec, ?]]))
@@ -31,7 +29,7 @@ class FreeInvariantMonoidalSuite extends CatsSuite {
   test("FreeInvariantMonoidal#fold") {
     val n = 2
     val i1 = numericSystemCodec(8)
-    val i2 = InvariantMonoidal[CsvCodec].pure(n)
+    val i2 = InvariantMonoidal[CsvCodec].lift(n)
     val iExpr = i1.product(i2.imap(_ * 2)(_ / 2))
 
     val f1 = FreeInvariantMonoidal.lift[CsvCodec, Int](i1)
@@ -44,7 +42,7 @@ class FreeInvariantMonoidalSuite extends CatsSuite {
   implicit val idIsInvariantMonoidal: InvariantMonoidal[Id] = new InvariantMonoidal[Id] {
     def product[A, B](fa: Id[A], fb: Id[B]): Id[(A, B)] = fa -> fb
     def imap[A, B](fa: Id[A])(f: A => B)(g: B => A): Id[B] = f(fa)
-    def pure[A](a: A): Id[A] = a
+    def unit: Id[Unit] = ()
   }
 
   test("FreeInvariantMonoidal#compile") {

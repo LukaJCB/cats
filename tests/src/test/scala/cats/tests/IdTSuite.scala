@@ -8,7 +8,6 @@ import cats.laws.discipline.arbitrary._
 
 class IdTSuite extends CatsSuite {
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[IdT[ListWrapper, ?]](IdT.catsDataFunctorForIdT(ListWrapper.functor))
 
   {
     implicit val F = ListWrapper.eqv[Option[Int]]

@@ -2,7 +2,7 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop._
 
@@ -22,7 +22,7 @@ trait ApplicativeTests[F[_]] extends ApplyTests[F] {
     EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new DefaultRuleSet(
       name = "applicative",
@@ -33,8 +33,8 @@ trait ApplicativeTests[F[_]] extends ApplyTests[F] {
       "applicative map" -> forAll(laws.applicativeMap[A, B] _),
       "applicative unit" -> forAll(laws.applicativeUnit[A] _),
       "ap consistent with product + map" -> forAll(laws.apProductConsistent[A, B] _),
-      "monoidal left identity" -> forAll((fa: F[A]) => iso.leftIdentity(laws.monoidalLeftIdentity(fa))),
-      "monoidal right identity" -> forAll((fa: F[A]) => iso.rightIdentity(laws.monoidalRightIdentity(fa))))
+      "monoidal left identity" -> forAll((fa: F[A]) => laws.monoidalLeftIdentity(fa)),
+      "monoidal right identity" -> forAll((fa: F[A]) => laws.monoidalRightIdentity(fa)))
   }
 }
 

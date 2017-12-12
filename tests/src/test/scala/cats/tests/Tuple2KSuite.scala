@@ -10,7 +10,6 @@ import cats.laws.discipline.eq._
 import cats.kernel.laws.discipline.{OrderTests, PartialOrderTests, EqTests}
 
 class Tuple2KSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Tuple2K[Option, List, ?]]
   checkAll("Tuple2K[Option, List, Int]", SemigroupalTests[λ[α => Tuple2K[Option, List, α]]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Tuple2K[Option, List, Int]]", SerializableTests.serializable(Semigroupal[λ[α => Tuple2K[Option, List, α]]]))
 
@@ -41,7 +40,6 @@ class Tuple2KSuite extends CatsSuite {
 
   {
     implicit val apply = ListWrapper.applyInstance
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[Tuple2K[ListWrapper, ListWrapper, ?]]
     checkAll("Tuple2K[ListWrapper, ListWrapper, ?]", ApplyTests[Tuple2K[ListWrapper, ListWrapper, ?]].apply[Int, Int, Int])
     checkAll("Apply[Tuple2K[ListWrapper, ListWrapper, ?]]", SerializableTests.serializable(Apply[Tuple2K[ListWrapper, ListWrapper, ?]]))
   }
@@ -64,7 +62,6 @@ class Tuple2KSuite extends CatsSuite {
 
   {
     implicit val monad = ListWrapper.monad
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[Tuple2K[ListWrapper, ListWrapper, ?]]
     checkAll("Tuple2K[ListWrapper, ListWrapper, ?]", MonadTests[Tuple2K[ListWrapper, ListWrapper, ?]].monad[Int, Int, Int])
     checkAll("Monad[Tuple2K[ListWrapper, ListWrapper, ?]]", SerializableTests.serializable(Monad[Tuple2K[ListWrapper, ListWrapper, ?]]))
   }
@@ -83,7 +80,6 @@ class Tuple2KSuite extends CatsSuite {
 
   {
     implicit val alternative = ListWrapper.alternative
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[Tuple2K[ListWrapper, ListWrapper, ?]]
     checkAll("Tuple2K[ListWrapper, ListWrapper, ?]", AlternativeTests[Tuple2K[ListWrapper, ListWrapper, ?]].alternative[Int, Int, Int])
     checkAll("Alternative[Tuple2K[ListWrapper, ListWrapper, ?]]", SerializableTests.serializable(Alternative[Tuple2K[ListWrapper, ListWrapper, ?]]))
   }

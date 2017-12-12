@@ -15,7 +15,6 @@ class FuncSuite extends CatsSuite {
   implicit def appFuncEq[F[_], A, B](implicit A: Arbitrary[A], FB: Eq[F[B]]): Eq[AppFunc[F, A, B]] =
     Eq.by[AppFunc[F, A, B], A => F[B]](_.run)
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Func[Option, Int, ?]]
 
   checkAll("Func[Option, Int, Int]", SemigroupalTests[Func[Option, Int, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Func[Option, Int, ?]]", SerializableTests.serializable(Semigroupal[Func[Option, Int, ?]]))
@@ -46,7 +45,6 @@ class FuncSuite extends CatsSuite {
 
   {
     implicit val appFuncApp = AppFunc.appFuncApplicative[Option, Int]
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[AppFunc[Option, Int, ?]]
     checkAll("AppFunc[Option, Int, Int]", ApplicativeTests[AppFunc[Option, Int, ?]].applicative[Int, Int, Int])
     checkAll("Applicative[AppFunc[Option, Int, ?]]", SerializableTests.serializable(Applicative[AppFunc[Option, Int, ?]]))
   }

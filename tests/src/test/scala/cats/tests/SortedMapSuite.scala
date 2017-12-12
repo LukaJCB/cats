@@ -9,7 +9,6 @@ import cats.laws.discipline.arbitrary._
 import scala.collection.immutable.SortedMap
 
 class SortedMapSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[SortedMap[Int, ?]]
 
   checkAll("SortedMap[Int, Int]", SemigroupalTests[SortedMap[Int, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[SortedMap[Int, ?]]", SerializableTests.serializable(Semigroupal[SortedMap[Int, ?]]))

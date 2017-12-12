@@ -42,10 +42,10 @@ object ListWrapper {
 
   def eqv[A : Eq]: Eq[ListWrapper[A]] = Eq.by(_.list)
 
-  val traverse: Traverse[ListWrapper] with InvariantSemigroupal[ListWrapper] = {
+  val traverse: Traverse[ListWrapper] with Semigroupal[ListWrapper] = {
     val F = Traverse[List]
 
-    new Traverse[ListWrapper] with InvariantSemigroupal[ListWrapper] {
+    new Traverse[ListWrapper] with Semigroupal[ListWrapper] {
       def foldLeft[A, B](fa: ListWrapper[A], b: B)(f: (B, A) => B): B =
         F.foldLeft(fa.list, b)(f)
       def foldRight[A, B](fa: ListWrapper[A], lb: Eval[B])(f: (A, Eval[B]) => Eval[B]): Eval[B] =
@@ -62,7 +62,7 @@ object ListWrapper {
 
   val functor: Functor[ListWrapper] = traverse
 
-  val invariant: InvariantSemigroupal[ListWrapper] = traverse
+  val invariant: Semigroupal[ListWrapper] = traverse
 
   val semigroupK: SemigroupK[ListWrapper] =
     new SemigroupK[ListWrapper] {

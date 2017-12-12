@@ -2,7 +2,7 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 
 trait CommutativeApplicativeTests[F[_]] extends CommutativeApplyTests[F] with ApplicativeTests[F] {
@@ -23,7 +23,7 @@ trait CommutativeApplicativeTests[F[_]] extends CommutativeApplyTests[F] with Ap
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
     EqFInt: Eq[F[Int]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new RuleSet {
       def name: String = "commutative applicative"

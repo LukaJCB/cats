@@ -2,11 +2,11 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen}
 import org.scalacheck.Prop._
 
-trait InvariantMonoidalTests[F[_]] extends InvariantSemigroupalTests[F] {
+trait InvariantMonoidalTests[F[_]] extends SemigroupalTests[F] {
   def laws: InvariantMonoidalLaws[F]
 
   def invariantMonoidal[A: Arbitrary, B: Arbitrary, C: Arbitrary](implicit
@@ -16,20 +16,18 @@ trait InvariantMonoidalTests[F[_]] extends InvariantSemigroupalTests[F] {
     CogenA: Cogen[A],
     CogenB: Cogen[B],
     CogenC: Cogen[C],
-    EqFABC: Eq[F[(A, (B, C))]],
+    EqFB: Eq[F[B]],
     EqFABC2: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F],
     EqFA: Eq[F[A]],
     EqFC: Eq[F[C]]
   ): RuleSet =
     new RuleSet {
       val name = "invariantMonoidal"
-      val parents = Seq(invariant[A, B, C], semigroupal[A, B, C])
+      val parents = Seq(semigroupal[A, B, C])
       val bases = Seq.empty
       val props = Seq(
         "invariant monoidal left identity" -> forAll((fa: F[A], b: B) => laws.invariantMonoidalLeftIdentity(fa, b)),
         "invariant monoidal right identity" -> forAll((fa: F[A], b: B) => laws.invariantMonoidalRightIdentity(fa, b)),
-        "invariant monoidal associativity" -> forAll((fa: F[A], fb: F[B], fc: F[C]) => laws.invariantMonoidalAssociativity(fa, fb, fc))
       )
     }
 }

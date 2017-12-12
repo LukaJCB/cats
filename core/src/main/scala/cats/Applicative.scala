@@ -18,6 +18,19 @@ import simulacrum.typeclass
 
 
   /**
+    * `pure` lifts any value into a Monoidal Functor.
+    *
+    * Example:
+    * {{{
+    * scala> import cats.implicits._
+    *
+    * scala> InvariantMonoidal[Option].pure(10)
+    * res0: Option[Int] = Some(10)
+    * }}}
+    */
+  def pure[A](a: A): F[A]
+
+  /**
    * Returns an `F[Unit]` value, equivalent with `pure(())`.
    *
    * A useful shorthand, also allowing implementations to optimize the

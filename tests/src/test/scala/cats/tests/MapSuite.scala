@@ -4,7 +4,6 @@ package tests
 import cats.laws.discipline.{FlatMapTests, SemigroupalTests, SerializableTests, UnorderedTraverseTests}
 
 class MapSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Map[Int, ?]]
 
   checkAll("Map[Int, Int]", SemigroupalTests[Map[Int, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Map[Int, ?]]", SerializableTests.serializable(Semigroupal[Map[Int, ?]]))

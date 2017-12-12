@@ -22,7 +22,6 @@ class CokleisliSuite extends SlowCatsSuite {
   def cokleisliEqE[F[_], A](implicit A: Arbitrary[F[A]], FA: Eq[A]): Eq[Cokleisli[F, A, A]] =
     Eq.by[Cokleisli[F, A, A], F[A] => A](_.run)
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Cokleisli[Option, Int, ?]]
 
   checkAll("Cokleisli[Option, Int, Int]", SemigroupalTests[Cokleisli[Option, Int, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Cokleisli[Option, Int, ?]]", SerializableTests.serializable(Semigroupal[Cokleisli[Option, Int, ?]]))

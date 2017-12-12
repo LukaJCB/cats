@@ -8,7 +8,7 @@ trait OrderingInstances {
        * Note: resulting instances are law-abiding only when the functions used are injective (represent a one-to-one mapping)
        */
 
-      def unit[A]: Ordering[A] = new Ordering[A] {
+      def conquer[A]: Ordering[A] = new Ordering[A] {
         def compare(l: A, r: A): Int = 0
       }
 

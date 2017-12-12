@@ -12,7 +12,6 @@ import cats.kernel.laws.discipline.{MonoidTests, SemigroupTests, OrderTests, Par
 import scala.util.Try
 
 class ValidatedSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Validated[String, ?]]
   checkAll("Validated[String, Int]", SemigroupalTests[Validated[String,?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Validated[String,?]]", SerializableTests.serializable(Semigroupal[Validated[String,?]]))
 

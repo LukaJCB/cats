@@ -5,7 +5,6 @@ import cats.Functor
 import cats.data._
 
 import cats.laws.discipline._
-import cats.laws.discipline.SemigroupalTests.Isomorphisms._
 import cats.laws.discipline.arbitrary._
 import cats.laws.discipline.eq.catsLawsEqForShow
 
@@ -54,9 +53,9 @@ class NestedSuite extends CatsSuite {
     // InvariantSemigroupal + Apply functor composition
     implicit val instance = ListWrapper.invariant
     checkAll("Nested[ListWrapper, Option, ?]",
-      InvariantSemigroupalTests[Nested[ListWrapper, Option, ?]].invariantSemigroupal[Int, Int, Int])
+      SemigroupalTests[Nested[ListWrapper, Option, ?]].semigroupal[Int, Int, Int])
     checkAll("InvariantSemigroupal[Nested[ListWrapper, Const[String, ?], ?]",
-      SerializableTests.serializable(InvariantSemigroupal[Nested[ListWrapper, Option, ?]]))
+      SerializableTests.serializable(Semigroupal[Nested[ListWrapper, Option, ?]]))
   }
 
   {

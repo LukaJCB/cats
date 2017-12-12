@@ -2,7 +2,7 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop._
 
@@ -22,7 +22,6 @@ trait AlternativeTests[F[_]] extends ApplicativeTests[F] with MonoidKTests[F]  {
     EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
   ): RuleSet = {
     new RuleSet {
       val name: String = "alternative"

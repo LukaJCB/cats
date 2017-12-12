@@ -3,7 +3,7 @@ package laws
 package discipline
 
 import cats.data.EitherT
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import org.scalacheck.Prop.forAll
 
@@ -31,7 +31,7 @@ trait MonadErrorTests[F[_], E] extends ApplicativeErrorTests[F, E] with MonadTes
     EqEitherTFEA: Eq[EitherT[F, E, A]],
     EqFABC: Eq[F[(A, B, C)]],
     EqFInt: Eq[F[Int]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new RuleSet {
       def name: String = "monadError"

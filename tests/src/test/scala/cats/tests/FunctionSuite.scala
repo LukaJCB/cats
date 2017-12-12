@@ -35,7 +35,6 @@ class FunctionSuite extends CatsSuite {
   checkAll("Function0[Int]", BimonadTests[Function0].bimonad[Int, Int, Int])
   checkAll("Bimonad[Function0]", SerializableTests.serializable(Bimonad[Function0]))
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Function1[Int, ?]]
   checkAll("Function1[Int, Int]", SemigroupalTests[Function1[Int, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[Function1[Int, ?]]", SerializableTests.serializable(Semigroupal[Function1[Int, ?]]))
 
@@ -105,7 +104,6 @@ class FunctionSuite extends CatsSuite {
   checkAll("Function1[String, Grp]", GroupTests[Function1[String, Grp]].group)
   checkAll("Function1[String, CGrp]", CommutativeGroupTests[Function1[String, CGrp]].commutativeGroup)
   // Isos for ContravariantMonoidal
-  implicit val isoCodomain = SemigroupalTests.Isomorphisms.invariant[Function1[?, Long]]
   checkAll("Function1[?, Monoid]", ContravariantMonoidalTests[Function1[?, Long]].contravariantMonoidal[Int, Int, Int])
 
   // serialization tests for the various Function1-related instances

@@ -4,7 +4,7 @@ package discipline
 
 import cats.instances.eq._
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop._
 
@@ -24,7 +24,7 @@ trait FlatMapTests[F[_]] extends ApplyTests[F] {
     EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     implicit def functorF: Functor[F] = laws.F
     implicit val EqFAB: Eq[F[(A, B)]] =

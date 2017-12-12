@@ -9,7 +9,6 @@ import org.scalacheck.Arbitrary._
 
 class IorSuite extends CatsSuite {
 
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Ior[String, ?]]
 
   checkAll("Ior[String, Int]", SemigroupalTests[Ior[String, ?]].semigroupal[Int, Int, Int])
   checkAll("Semigroupal[String Ior ?]]", SerializableTests.serializable(Semigroupal[String Ior ?]))

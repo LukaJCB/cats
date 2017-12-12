@@ -3,7 +3,7 @@ package laws
 package discipline
 
 import cats.data.EitherT
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import cats.laws.discipline.arbitrary._
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import org.scalacheck.Prop.forAll
@@ -31,7 +31,7 @@ trait ApplicativeErrorTests[F[_], E] extends ApplicativeTests[F] {
     EqFEitherEA: Eq[F[Either[E, A]]],
     EqEitherTFEA: Eq[EitherT[F, E, A]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = {
     new RuleSet {
       def name: String = "applicativeError"

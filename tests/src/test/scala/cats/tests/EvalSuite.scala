@@ -2,7 +2,7 @@ package cats
 package tests
 
 import cats.laws.ComonadLaws
-import cats.laws.discipline.{BimonadTests, SemigroupalTests, ReducibleTests, SerializableTests}
+import cats.laws.discipline.{BimonadTests, ReducibleTests, SerializableTests}
 import cats.laws.discipline.arbitrary._
 import cats.kernel.laws.discipline.{EqTests, GroupTests, MonoidTests, OrderTests, PartialOrderTests, SemigroupTests}
 import org.scalacheck.{Arbitrary, Cogen, Gen}
@@ -89,7 +89,6 @@ class EvalSuite extends CatsSuite {
   }
 
   {
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[Eval]
     checkAll("Eval[Int]", BimonadTests[Eval].bimonad[Int, Int, Int])
   }
 

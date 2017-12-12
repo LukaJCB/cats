@@ -309,8 +309,6 @@ class ReaderWriterStateTSuite extends CatsSuite {
     }
   }
 
-  implicit val iso = SemigroupalTests.Isomorphisms
-    .invariant[IndexedReaderWriterStateT[ListWrapper, String, String, Int, String, ?]](IndexedReaderWriterStateT.catsDataFunctorForIRWST(ListWrapper.functor))
 
   {
     implicit val F: Monad[ListWrapper] = ListWrapper.monad
@@ -360,7 +358,6 @@ class ReaderWriterStateTSuite extends CatsSuite {
   }
 
   {
-    implicit val iso = SemigroupalTests.Isomorphisms.invariant[ReaderWriterStateT[Option, String, String, Int, ?]]
     implicit val eqEitherTFA: Eq[EitherT[ReaderWriterStateT[Option, String, String, Int, ?], Unit, Int]] =
       EitherT.catsDataEqForEitherT[ReaderWriterStateT[Option, String, String, Int, ?], Unit, Int]
 

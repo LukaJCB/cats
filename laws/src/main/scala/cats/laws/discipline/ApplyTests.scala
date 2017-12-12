@@ -2,7 +2,7 @@ package cats
 package laws
 package discipline
 
-import cats.laws.discipline.SemigroupalTests.Isomorphisms
+
 import org.scalacheck.{Arbitrary, Cogen, Prop}
 import Prop._
 
@@ -19,9 +19,10 @@ trait ApplyTests[F[_]] extends FunctorTests[F] with SemigroupalTests[F] {
     CogenB: Cogen[B],
     CogenC: Cogen[C],
     EqFA: Eq[F[A]],
+    EqFB: Eq[F[B]],
     EqFC: Eq[F[C]],
     EqFABC: Eq[F[(A, B, C)]],
-    iso: Isomorphisms[F]
+
   ): RuleSet = new RuleSet {
     val name = "apply"
     val parents = Seq(functor[A, B, C], semigroupal[A, B, C])

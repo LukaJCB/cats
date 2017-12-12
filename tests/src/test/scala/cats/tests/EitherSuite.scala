@@ -7,7 +7,6 @@ import cats.kernel.laws.discipline.{MonoidTests, SemigroupTests, OrderTests, Par
 import scala.util.Try
 
 class EitherSuite extends CatsSuite {
-  implicit val iso = SemigroupalTests.Isomorphisms.invariant[Either[Int, ?]]
 
   checkAll("Either[String, Int]", MonoidTests[Either[String, Int]].monoid)
   checkAll("Monoid[Either[String, Int]]", SerializableTests.serializable(Monoid[Either[String, Int]]))

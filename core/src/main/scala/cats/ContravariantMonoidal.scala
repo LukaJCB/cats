@@ -5,6 +5,7 @@ import simulacrum.typeclass
 /**
  * [[ContravariantMonoidal]] functors are functors that supply
  * a unit along the diagonal map for the `contramap2` operation.
+ * Sometimes also known as Divisible functors
  *
  * Must obey the laws defined in cats.laws.ContravariantMonoidalLaws.
  *
@@ -13,13 +14,14 @@ import simulacrum.typeclass
  */
 @typeclass trait ContravariantMonoidal[F[_]] extends ContravariantSemigroupal[F] with InvariantMonoidal[F] {
   /**
-   * `unit` produces an instance of `F` for any type `A`
+   * `conquer` produces an instance of `F` for any type `A`
    * that is trivial with respect to `contramap2` along
    * the diagonal
    */
-  def unit[A]: F[A]
+  def conquer[A]: F[A]
 
-  override def pure[A](a: A): F[A] = unit
+  override def unit: F[Unit] = conquer[Unit]
+
 }
 object ContravariantMonoidal extends SemigroupalArityFunctions {
   def monoid[F[_], A](implicit f: ContravariantMonoidal[F]): Monoid[F[A]] =
@@ -27,5 +29,5 @@ object ContravariantMonoidal extends SemigroupalArityFunctions {
 }
 
 private[cats] class ContravariantMonoidalMonoid[F[_], A](f: ContravariantMonoidal[F]) extends ContravariantSemigroupalSemigroup[F, A](f) with Monoid[F[A]] {
-  def empty: F[A] = f.unit
+  def empty: F[A] = f.conquer
 }

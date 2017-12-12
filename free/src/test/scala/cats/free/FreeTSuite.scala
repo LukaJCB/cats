@@ -169,21 +169,14 @@ object FreeTSuite extends FreeTSuiteInstances {
 
 trait FreeTSuiteInstances {
 
-  import FreeT._
-  import IndexedStateT._
   import cats.kernel.instances.option._
   import cats.tests.IndexedStateTSuite._
-  import SemigroupalTests._
 
   type IntState[A] = State[Int, A]
   type FreeTOption[A] = FreeT[Option, Option, A]
   type FreeTState[A] = FreeT[IntState, IntState, A]
 
   case class JustFunctor[A](a: A)
-
-  implicit val ftlWIso: Isomorphisms[FreeTOption] = SemigroupalTests.Isomorphisms.invariant[FreeTOption]
-
-  implicit val ftlSIso: Isomorphisms[FreeTState] = SemigroupalTests.Isomorphisms.invariant[FreeTState]
 
   implicit val jfFunctor: Functor[JustFunctor] = new Functor[JustFunctor] {
     override def map[A, B](fa: JustFunctor[A])(f: A => B): JustFunctor[B] = JustFunctor(f(fa.a))

@@ -8,7 +8,7 @@ trait EquivInstances {
        * Defaults to trivially contracting the type
        * to a point
        */
-      def unit[A]: Equiv[A] = new Equiv[A] {
+      def conquer[A]: Equiv[A] = new Equiv[A] {
         def equiv(x: A, y: A): Boolean = true
       }
 
